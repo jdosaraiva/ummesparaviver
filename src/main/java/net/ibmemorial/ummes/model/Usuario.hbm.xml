@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+    <class name="net.ibmemorial.ummes.model.Usuario" table="TUSUARIO">
+        <id name="login" type="java.lang.String">
+            <column name="LOGIN" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="nome" type="java.lang.String" column="NOME" length="50" />
+        <property name="senha" type="java.lang.String" column="SENHA" length="15" />
+        <property name="codigoInscrito" type="java.lang.Integer" column="IDFACILHOSP" precision="10" scale="0" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,448 @@
+/** Add css rules here for your application. */
+
+*
+{
+    font-family: Arial, sans-serif;
+    font-size: 12px;    
+}
+
+body, table td, a, div, .p, pre 
+{
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #777777;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 18px;
+  font-family: arial;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 14px;
+  font-family: arial;
+  font-weight: bold;
+}
+
+body {
+	background-color: #000000;
+	background-image: url(images/fundo_home.jpg);
+	background-repeat: no-repeat;
+	background-align: center;
+}
+
+.gwt-HTML {
+	font-size:12px;
+}
+
+.gwt-CheckBox {
+	font-size:12px;
+}
+
+.gwt-RadioButton {
+	font-size:12px;
+}
+
+.gwt-ListBox {
+	font-size:12px;
+}
+
+.gwt-Label {
+	font-size:12px;
+}
+
+.button {
+  display: block;
+  font-size: 12px;
+  margin: 15px 6px 6px;
+  cursor: pointer;
+}
+
+
+.body {
+	background-color: #000000;
+	background-image: url(images/fundo_home.jpg);
+	background-repeat: no-repeat;
+	background-align: center;
+}
+
+#home {
+	position:absolute;
+	top:106px;
+	left:185px;
+} 
+
+#oque {
+	position:absolute;
+	top:106px;
+	left:266px;
+}
+
+#oprograma {
+	position:absolute;
+	top:106px;
+	left:332px;
+}
+
+#participar {
+	position:absolute;
+	top:106px;
+	left:430px;
+}
+
+#gps {
+	position:absolute;
+	top:106px;
+	left:554px;
+}
+
+#topleftgraybar {
+	position:absolute;
+	top:106px;
+	left:693px;
+}
+
+
+#graypanel {
+	background-color: #e0e0e0;
+	position:absolute;
+	top:106px;
+	left:185px;
+	width:812;
+	height:518;
+	z-index: -2;
+} 
+
+#footer {
+	position:absolute;
+	top:630px;
+	left:530px;
+	font-family: tahoma;
+	font-size:10px;
+}
+
+#centerPanel {
+	background-color: #e0e0e0;
+	position:absolute;
+	top: 165px;
+	left: 200px;
+	width: 737px;
+	padding: 0px 30px 0px 30px;
+} 
+
+/** InscricaoHospedeiroFacilitadorPanel */
+.InscricaoHospedeiroFacilitadorPanel {
+	 width: 600px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-nomeTextBox {
+	 width: 710px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-enderecoTextBox {
+	 width: 710px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-complementoTextBox {
+	 width: 410px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-bairroTextBox {
+	 width: 290px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-cidadeTextBox {
+	 width: 260px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-CepTextBox {
+	 width: 140px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-emailTextBox {
+	 width: 260px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-telefoneResidencialTextBox {
+	 width: 140px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-telefoneComercialTextBox {
+	 width: 140px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-telefoneCelularTextBox {
+	 width: 140px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-quantidadeAdultosTextBox {
+    width: 30px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-adultosLabel {
+    position:relative;
+    left:5px;
+    font-size: 12px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-quantidadeCriancasTextBox {
+    position:relative;
+    left:30px;
+    width: 30px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-criancasLabel {
+    position:relative;
+    left:35px;
+    font-size: 12px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-tipoOutroTextBox {
+    width: 170px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-observacaoTextArea {
+     width: 707px;
+}
+
+.InscricaoHospedeiroFacilitadorPanel-confirmarButton {
+    display: block;
+    font-size: 12px;
+    position:relative;
+    right:-637px;
+}
+/** FIM InscricaoHospedeiroFacilitadorPanel */
+
+
+/** LoginPanel */
+.LoginPanel {
+	position:absolute;
+    top: 107px;
+    left:877px;
+    width: 120px;
+}
+
+.LoginPanel-DialogBox {
+	font-size:12px;
+}
+
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.gwt-MenuItem {
+	font-size:12px;
+}
+
+
+.gwt-DecoratedTabBar {
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarFirst {
+  width: 5px;  /* first tab distance from the left */
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarRest {
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem {
+  border-collapse: collapse;
+  margin-left: 6px;
+}
+
+.gwt-DecoratedTabBar .tabTopCenter {
+  padding: 0px;
+  background: #d0e4f6;
+}
+
+.gwt-DecoratedTabBar .tabTopLeft,
+.gwt-DecoratedTabBar .tabTopRight {
+  padding: 0px;
+  zoom: 1;
+}
+
+.gwt-DecoratedTabBar .tabTopLeftInner,
+.gwt-DecoratedTabBar .tabTopRightInner {
+  width: 6px;
+  height: 6px;
+}
+
+.gwt-DecoratedTabBar .tabTopLeft {
+  background: url(images/corner.png) no-repeat 0px -55px;
+  -background: url(images/corner_ie6.png) no-repeat 0px -55px;
+}
+
+.gwt-DecoratedTabBar .tabTopRight {
+  background: url(images/corner.png) no-repeat -6px -55px;
+  -background: url(images/corner_ie6.png) no-repeat -6px -55px;
+}
+
+.gwt-DecoratedTabBar .tabMiddleLeft,
+.gwt-DecoratedTabBar .tabMiddleRight {
+  width: 6px;
+  padding: 0px;
+  background: #d0e4f6;
+}
+
+.gwt-DecoratedTabBar .tabMiddleLeftInner,
+.gwt-DecoratedTabBar .tabMiddleRightInner {
+  width: 1px;
+  height: 1px;
+}
+
+.gwt-DecoratedTabBar .tabMiddleCenter {
+  padding: 0px 4px 2px 4px;
+  cursor: pointer;
+  cursor: hand;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  background: #d0e4f6;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabTopCenter {
+  background: #92c1f0;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabTopLeft {
+  background-position: 0px -61px;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabTopRight {
+  background-position: -6px -61px;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleLeft,
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleRight {
+  background: #92c1f0;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected .tabMiddleCenter {
+  cursor: default;
+  background: #92c1f0;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-disabled .tabMiddleCenter {
+  cursor: default;
+  color: #999999;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.TextBox-error {
+	border-bottom: red 1px solid;
+    border-left: red 1px solid;
+    border-right: red 1px solid;
+    border-top: red 1px solid;
+    /** color: red; */
+}
+
+.CheckBox-error {
+    color: red;
+}
+
+
+.FlexTable {
+  border-top: thin solid #444444;
+  border-left: thin solid #444444;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+  background-color:  #505050;
+}
+
+.FlexTable-OddRow {
+  background-color: #cccccc;
+}
+
+.FlexTable-EvenRow {
+  background-color:  #e0e0e0;
+}
+
+.FlexTable-ColumnLabel {
+  color: white;
+  padding: 3px;
+}
+
+.FlexTable-ColumnLabelCell {
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.FlexTable-Cell {
+  border-width: 0px 0px 0px 1px;
+  border-style: solid;
+  border-color: white;
+  padding: 5px;
+}
+
+.clickable {
+	cursor: pointer;
+	cursor: hand;	
+}
+
+ .clickable:hover {
+   background-color: #0061D7;
+ }
+
+#mensagemErro {
+    color: red;
+    position:relative;
+    top: 0px;
+    left: 20px;
+}
+
+#dialogButton {
+  margin: 15px 6px 6px;
+  display: block;
+  font-size: 12px;
+}
+
+#entrarButton {
+  margin: 15px 6px 6px;
+  font-size: 12px;
+}
+
+#sairButton {
+  margin: 15px 6px 6px;
+  font-size: 12px;
+}
+
+#menuAcessoRestrito {
+	position:absolute;
+    top: 106px;
+    left:200px;
+    width: 797px;
+}
+
+#confirmarButton {
+  margin: 15px 6px 6px;
+  font-size: 12px;
+}
+
+#paginaAnteriorButton {
+	font-size: 8px;
+}
+
+#proximaPaginaButton {
+	font-size: 8px;
+}

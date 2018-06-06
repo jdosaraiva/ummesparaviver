@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+    <typedef class="net.ibmemorial.ummes.server.GenericEnumUserType" name="tipoGrupoType">
+        <param name="enumClassName">net.ibmemorial.ummes.model.TipoGrupo</param>
+        <param name="identifierMethod">getId</param>
+    </typedef>
+    <typedef class="net.ibmemorial.ummes.server.GenericEnumUserType" name="diaSemanaType">
+        <param name="enumClassName">net.ibmemorial.ummes.model.DiaSemana</param>
+        <param name="identifierMethod">getId</param>
+    </typedef>
+    <typedef class="net.ibmemorial.ummes.server.GenericEnumUserType" name="horarioType">
+        <param name="enumClassName">net.ibmemorial.ummes.model.Horario</param>
+        <param name="identifierMethod">getId</param>
+    </typedef>
+
+    <class name="net.ibmemorial.ummes.model.Grupo" table="TGRUPO">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="codigoFacilitador" type="java.lang.Integer" column="CODIGOFAC" precision="10" scale="0" />
+        <property name="codigoHospedeiro" type="java.lang.Integer" column="CODIGOHOSP" precision="10" scale="0" />
+        <property name="tipoGrupo" type="tipoGrupoType" column="TIPOGRUPO" precision="1" scale="0" />
+        <property name="grupoOutro" type="java.lang.String" column="GRUPOOUTRO" length="30" />
+        <property name="diaSemana" type="diaSemanaType" column="DIASEMANA" precision="1" scale="0" />
+        <property name="horario" type="horarioType" column="HORARIO" precision="1" scale="0" />
+        <property name="quantidadeMaxima" type="java.lang.Integer" column="QTDEMAXIMA" precision="10" scale="0" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="net.ibmemorial.ummes.model.UsuarioRole" table="TUSUARIOROLE">
+		<composite-id name="id"
+			class="net.ibmemorial.ummes.model.UsuarioRoleId">
+			<key-property name="login" type="java.lang.String">
+				<column name="LOGINUSUARIO" length="15"/>
+			</key-property>
+			<key-property name="role" type="java.lang.String">
+				<column name="CODIGOROLE" length="15"/>
+			</key-property>
+		</composite-id>
+	</class>
+</hibernate-mapping>

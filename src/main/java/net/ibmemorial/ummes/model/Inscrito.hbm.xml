@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+    <typedef class="net.ibmemorial.ummes.server.GenericEnumUserType" name="funcaoType">
+        <param name="enumClassName">net.ibmemorial.ummes.model.Funcao</param>
+        <param name="identifierMethod">getId</param>
+    </typedef>
+
+    <class name="net.ibmemorial.ummes.model.Inscrito" table="TFACILHOSP">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="nome" type="java.lang.String" column="NOME" length="50" />
+        <property name="funcao" type="funcaoType" column="NUMFUNCAO" precision="2" scale="0" />
+        <property name="grupoOutro" type="java.lang.String" column="GRUPOOUTRO" length="30" />
+        <property name="endereco" type="java.lang.String" column="ENDERECO" length="100" />
+        <property name="complemento" type="java.lang.String" column="COMPLEMENTO" length="30" />
+        <property name="bairro" type="java.lang.String" column="BAIRRO" length="30" />
+        <property name="cidade" type="java.lang.String" column="CIDADE" length="30" />
+        <property name="cep" type="java.lang.String" column="CEP" length="10" />
+        <property name="telefoneResidencial" type="java.lang.String" column="TELEFONERES" length="15" />
+        <property name="telefoneComercial" type="java.lang.String" column="TELEFONECOM" length="15" />
+        <property name="telefoneCelular" type="java.lang.String" column="TELEFONECEL" length="15" />
+        <property name="email" type="java.lang.String" column="EMAIL" length="100" />
+        <property name="membro" type="java.lang.Boolean" column="MEMBRO" length="1" />
+        <property name="quantidadeAdultos" type="java.lang.Integer" column="QTDEADULTOS" precision="2" scale="0" />
+        <property name="quantidadeCriancas" type="java.lang.Integer" column="QTDECRIANCAS" precision="2" scale="0" />
+        <property name="observacao" type="java.lang.String" column="OBS" length="200" />
+        <property name="status" type="java.lang.Character" column="STATUSREGISTRO" length="1" />
+        <property name="dataCadastro" type="timestamp" column="DATACADASTRO" />
+        <property name="autorCadastro" type="java.lang.String" column="ORIGEMINFO" length="20" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+    <class name="net.ibmemorial.ummes.model.InscritoDiaSemana" table="TDIASEMANA_FACILHOSP">
+        <composite-id name="id" class="net.ibmemorial.ummes.model.InscritoDiaSemanaId">
+            <key-property name="codigoInscrito" type="java.lang.Integer">
+                <column name="IDFACILHOSP" precision="10" scale="0" />
+            </key-property>
+            <key-property name="codigoDiaSemana" type="java.lang.Integer">
+                <column name="IDDIASEMANA" precision="1" scale="0" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

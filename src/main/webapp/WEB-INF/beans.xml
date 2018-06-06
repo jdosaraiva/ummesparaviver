@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="net.ibmemorial.ummes.server" />
+
+    <bean id="dao" class="net.ibmemorial.ummes.dao.HibernateDAO" scope="singleton">
+        <property name="sessionFactory" ref="hibernateSessionFactory" />
+    </bean>
+
+    <bean id="helper" class="net.ibmemorial.ummes.server.ServiceHelper" scope="singleton">
+        <property name="dao" ref="dao" />
+        <property name="mailSender" ref="mailSender" />
+        <!-- 
+        <property name="sendTo" value="danielreis@ibmemorial.org.br" />
+         -->
+         <!-- -->
+        <property name="sendTo" value="allan.jones@gmail.com" />
+       
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="session" ref="mailSession" />
+    </bean>
+    
+    	<bean id="smtpAuthenticator" class="net.ibmemorial.ummes.server.SmtpAuthenticator">
+		<constructor-arg value="pctl.mgp@gmail.com" />
+		<constructor-arg value="mgp.pctl" />
+	</bean>
+
+	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
+		<constructor-arg>
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.host">smtp.gmail.com</prop>
+				<prop key="mail.smtp.socketFactory.port">465</prop>
+				<prop key="mail.smtp.socketFactory.class">
+					javax.net.ssl.SSLSocketFactory
+				</prop>
+				<prop key="mail.smtp.socketFactory.fallback">
+					false
+				</prop>
+			</props>
+		</constructor-arg>
+		<constructor-arg ref="smtpAuthenticator" />
+	</bean>
+
+    <bean id="transIntercept" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <value>transIntercept</value>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <value>helper</value>
+            </list>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+    <class name="net.ibmemorial.ummes.model.Participante" table="TPARTICIPANTE">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="codigoGrupo" type="java.lang.Integer" column="CODIGOGRUPO" precision="10" scale="0" />
+        <property name="nome" type="java.lang.String" column="NOME" length="50" />
+        <property name="telefone" type="java.lang.String" column="TELEFONE" length="15" />
+        <property name="outroTelefone" type="java.lang.String" column="OUTROTELEFONE" length="15" />
+        <property name="email" type="java.lang.String" column="EMAIL" length="100" />
+        <property name="quantidadeCriancas" type="java.lang.Integer" column="QTDECRIANCAS" precision="2" scale="0" />
+        <property name="dataCadastro" type="timestamp" column="DATACADASTRO" />
+    </class>
+</hibernate-mapping>
