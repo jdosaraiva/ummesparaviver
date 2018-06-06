@@ -46,16 +46,24 @@
 	[
 		"/C/Users/Micro/workspace/ummesparaviver",
 		"/C/Users/Micro/workspace/ummesparaviver/scripts",
-		"/C/Users/Micro/workspace/ummesparaviver/scripts/base"
+		"/C/Users/Micro/workspace/ummesparaviver/scripts/base",
+		"/C/Users/Micro/workspace/ummesparaviver/src",
+		"/C/Users/Micro/workspace/ummesparaviver/src/main",
+		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp",
+		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp/WEB-INF"
 	],
 	"file_history":
 	[
+		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp/WEB-INF/local.xml",
+		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp/WEB-INF/web.xml",
+		"/C/Users/Micro/workspace/ummesparaviver/pom.xml",
+		"/C/Users/Micro/workspace/ummesparaviver/.gitignore",
 		"/C/Users/Micro/workspace/ummesparaviver/scripts/base/bkp-cemparasem.sql",
 		"/C/Users/Micro/workspace/ummesparaviver/scripts/base/postgresql.sql"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -163,7 +171,7 @@
 	"project": "ummesparaviver.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
