@@ -11,6 +11,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/workspace/repositorio/comandos.txt",
+			"settings":
+			{
+				"buffer_size": 2158,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -44,13 +53,7 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Micro/workspace/ummesparaviver",
-		"/C/Users/Micro/workspace/ummesparaviver/scripts",
-		"/C/Users/Micro/workspace/ummesparaviver/scripts/base",
-		"/C/Users/Micro/workspace/ummesparaviver/src",
-		"/C/Users/Micro/workspace/ummesparaviver/src/main",
-		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp",
-		"/C/Users/Micro/workspace/ummesparaviver/src/main/webapp/WEB-INF"
+		"/C/Users/Micro/workspace/ummesparaviver"
 	],
 	"file_history":
 	[
@@ -127,8 +130,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/D/workspace/repositorio/comandos.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2158,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								655,
+								680
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
