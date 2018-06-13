@@ -7,16 +7,68 @@
 	<packaging>war</packaging>
 	<name>Um Mês Para Viver</name>
 	<description>Um Mês Para Viver</description>
+
+	<properties>
+		<!-- Convenience property to set the GWT version -->
+		<gwtVersion>2.4.0</gwtVersion>
+		<!-- GWT needs at least java 1.5 -->
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<repositories>
+		<repository>
+			<id>webapp-runner-repo</id>
+			<name>webapp runner repository on GitHub</name>
+			<url>http://jsimone.github.com/webapp-runner/repository/</url>
+		</repository>
+	</repositories>
 	<build>
-		<!-- <testSourceDirectory>src/main/tests</testSourceDirectory> <resources> 
-			<resource> <directory>src/main/java</directory> <excludes> <exclude>**/*.java</exclude> 
-			</excludes> </resource> <resource> <directory>src/main/resources</directory> 
-			<excludes> <exclude>**/*.java</exclude> </excludes> </resource> </resources> 
-			// -->
+		<!-- Generate compiled stuff in the folder used for developing mode -->
+    	<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+		<testSourceDirectory>src/main/tests</testSourceDirectory> 
+		<resources> 
+			<resource> 
+				<directory>src/main/java</directory> 
+				<excludes> 
+					<exclude>**/*.java</exclude> 
+				</excludes> 
+			</resource> 
+			<resource> 
+				<directory>src/main/resources</directory> 
+				<excludes> 
+					<exclude>**/*.java</exclude> 
+				</excludes> 
+			</resource> 
+		</resources> 
 		<plugins>
+			<!-- GWT Maven Plugin -->
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.4.0</version>
+				<!-- Plugin configuration. There are many available options, see 
+				gwt-maven-plugin documentation at codehaus.org -->
+				<configuration>
+					<runTarget>herokuGWTMavenSample.html</runTarget>
+					<hostedWebapp>${webappDirectory}</hostedWebapp>
+					<i18nMessagesBundle>com.jsimone.client.Messages</i18nMessagesBundle>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -158,8 +210,15 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>2.0.4</version>
+			<version>${gwtVersion}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.gwt/gwt-user -->
+		<dependency>
+		    <groupId>com.google.gwt</groupId>
+		    <artifactId>gwt-user</artifactId>
+		    <version>${gwtVersion}</version>
+		    <scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javassist/javassist -->
 		<dependency>
@@ -244,6 +303,19 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.7</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    <version>1.0.0.GA</version>
 		</dependency>
 	</dependencies>
 </project>
