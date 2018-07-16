@@ -1,5 +1,8 @@
 package net.ibmemorial.ummes.client;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -7,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -23,8 +25,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import java.util.LinkedList;
-import java.util.List;
+
 import net.ibmemorial.ummes.model.DiaSemana;
 import net.ibmemorial.ummes.model.Funcao;
 import net.ibmemorial.ummes.model.Horario;
@@ -295,7 +296,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 	}
 
 	private List<String> validate() {
-		List<String> mensagens = new LinkedList();
+		List<String> mensagens = new LinkedList<String>();
 		if ((ValidationUtils.validateRequired(mensagens, this.constants.tipoCadastroLabel(),
 				new CheckBox[] { this.ambosRadioButton, this.facilitadorRadioButton, this.hospedeiroRadioButton })) || (
 
@@ -417,7 +418,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 	}
 
 	private List<TipoGrupo> getGrupos() {
-		List<TipoGrupo> grupos = new LinkedList();
+		List<TipoGrupo> grupos = new LinkedList<>();
 		CheckBox[] arrayOfCheckBox;
 		int j = (arrayOfCheckBox = this.tipoGrupoCheckBoxes).length;
 		for (int i = 0; i < j; i++) {
@@ -430,7 +431,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 	}
 
 	private List<DiaSemana> getDiasSemana() {
-		List<DiaSemana> dias = new LinkedList();
+		List<DiaSemana> dias = new LinkedList<>();
 		CheckBox[] arrayOfCheckBox;
 		int j = (arrayOfCheckBox = this.diasCheckBox).length;
 		for (int i = 0; i < j; i++) {
@@ -443,7 +444,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 	}
 
 	private List<Horario> getHorarios() {
-		List<Horario> horarios = new LinkedList();
+		List<Horario> horarios = new LinkedList<>();
 		CheckBox[] arrayOfCheckBox;
 		int j = (arrayOfCheckBox = this.horariosCheckBox).length;
 		for (int i = 0; i < j; i++) {
@@ -487,7 +488,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 		List<DiaSemana> dias = getDiasSemana();
 		List<Horario> horarios = getHorarios();
 
-		this.service.inscrever(inscrito, grupos, dias, horarios, new AsyncCallback() {
+		this.service.inscrever(inscrito, grupos, dias, horarios, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
 				VerticalPanel panel = new VerticalPanel();
 				panel.add(new HTML(caught.getMessage()));
@@ -497,7 +498,7 @@ public class InscricaoHospedeiroFacilitadorPanel extends LazyPanel {
 				InscricaoHospedeiroFacilitadorPanel.this.confirmarButton.setEnabled(true);
 			}
 
-			public void onSuccess(Object result) {
+			public void onSuccess(Void result) {
 				VerticalPanel panel = new VerticalPanel();
 				panel.add(new HTML(InscricaoHospedeiroFacilitadorPanel.this.constants.inscricaoSucesso()));
 				DialogBox db = UiUtils.createDialog(InscricaoHospedeiroFacilitadorPanel.this.constants.sucessoTitulo(),

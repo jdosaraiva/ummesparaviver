@@ -1,10 +1,12 @@
 package net.ibmemorial.ummes.shared;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import java.io.Serializable;
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 public class Page<V> implements Serializable, IsSerializable {
+	private static final long serialVersionUID = -5609658149755991349L;
 	private List<V> results;
 	private int resultsPerPage;
 	private int pageNumber;

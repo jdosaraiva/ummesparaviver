@@ -1,11 +1,16 @@
 package net.ibmemorial.ummes.client;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -13,7 +18,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable;
-import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.LazyPanel;
@@ -22,16 +26,10 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
 import net.ibmemorial.ummes.model.DiaSemana;
-import net.ibmemorial.ummes.model.Grupo;
 import net.ibmemorial.ummes.model.GrupoDTO;
 import net.ibmemorial.ummes.model.Horario;
-import net.ibmemorial.ummes.model.Inscrito;
 import net.ibmemorial.ummes.model.TipoGrupo;
 import net.ibmemorial.ummes.shared.Page;
 
@@ -67,7 +65,7 @@ public class ListaGruposPanel extends LazyPanel {
 	private final Button proximaPaginaButton = new Button(">>");
 	private final HTML pageNumberLabel = new HTML();
 	private int pageNumber = 0;
-	private final Map<String, Serializable> searchParameters = new HashMap();
+	private final Map<String, Serializable> searchParameters = new HashMap<>();
 	private Page<GrupoDTO> resultado;
 	private GrupoDTO selecionado;
 	private final boolean visualizacao;
@@ -260,9 +258,8 @@ public class ListaGruposPanel extends LazyPanel {
 	}
 
 	private void doSearch() {
-		this.service.getGrupos(this.searchParameters, this.pageNumber, new AsyncCallback() {
-			public void onSuccess(Object objeto) {
-				Page<GrupoDTO> result = (Page<GrupoDTO>) objeto;
+		this.service.getGrupos(this.searchParameters, this.pageNumber, new AsyncCallback<Page<GrupoDTO>>() {
+			public void onSuccess(Page<GrupoDTO> result) {
 				ListaGruposPanel.this.resultado = result;
 				List<GrupoDTO> list = result.getResults();
 

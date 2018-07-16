@@ -21,8 +21,7 @@ import net.ibmemorial.ummes.shared.Page;
 
 public class UmMesParaViver implements EntryPoint {
 	private final ServiceAsync service = (ServiceAsync) GWT.create(Service.class);
-	private final UmMesParaViverConstants constants = (UmMesParaViverConstants) GWT
-			.create(UmMesParaViverConstants.class);
+	private final UmMesParaViverConstants constants = (UmMesParaViverConstants) GWT.create(UmMesParaViverConstants.class);
 	private Panel mainPanel;
 	private Panel content;
 	private UsuarioDTO usuario;
@@ -31,25 +30,22 @@ public class UmMesParaViver implements EntryPoint {
 		RootPanel.get().setStyleName("body");
 		if ((RootPanel.get("popup") != null)
 				&& (ValidationUtils.isInteger(Window.Location.getParameter("codigoGrupo")))) {
-			Map<String, Serializable> searchParameters = new HashMap();
+			Map<String, Serializable> searchParameters = new HashMap<String, Serializable>();
 			searchParameters.put("codigo", new Integer(Window.Location.getParameter("codigoGrupo")));
 
-			this.service.getGrupos(searchParameters, 0, new AsyncCallback() {
-				public void onSuccess(final Object objeto) {
-					if (objeto == null) {
+			this.service.getGrupos(searchParameters, 0, new AsyncCallback<Page<GrupoDTO>>() {
+				public void onSuccess(final Page<GrupoDTO> result) {
+					if (result == null) {
 						return;
 					}
-					Page<GrupoDTO> result = (Page<GrupoDTO>) objeto;
 					if (result.getResults().isEmpty()) {
 						return;
 					}
-					UmMesParaViver.this.service.getUsuarioDTO(new AsyncCallback() {
-						public void onSuccess(Object objUser) {
-							UsuarioDTO user = (UsuarioDTO) objUser;
+					UmMesParaViver.this.service.getUsuarioDTO(new AsyncCallback<UsuarioDTO>() {
+						public void onSuccess(UsuarioDTO user) {
 							UmMesParaViver.this.usuario = user;
 							UmMesParaViver.this.setContent(new AdministrarGrupoPanel(UmMesParaViver.this, null,
-									((Page<GrupoDTO>) objeto).getResults().get(0), true,
-									(UmMesParaViver.this.usuario != null)
+									result.getResults().get(0), true, (UmMesParaViver.this.usuario != null)
 											&& (UmMesParaViver.this.usuario.getUsuario().getCodigoInscrito() != null)));
 						}
 
@@ -64,24 +60,23 @@ public class UmMesParaViver implements EntryPoint {
 			});
 			return;
 		}
+
 		if (RootPanel.get("acessoRestrito") != null) {
 			LoginPanel loginPanel = new LoginPanel(this);
 			RootPanel.get("acessoRestrito").add(loginPanel);
 			loginPanel.setVisible(true);
 		}
+
 		if (RootPanel.get("menuAcessoRestrito") != null) {
-			this.service.getUsuarioDTO(new AsyncCallback() {
-				public void onSuccess(Object objeto) {
-					UsuarioDTO result = (UsuarioDTO) objeto;
+			this.service.getUsuarioDTO(new AsyncCallback<UsuarioDTO>() {
+				public void onSuccess(UsuarioDTO result) {
 					UmMesParaViver.this.usuario = result;
 					if (result == null) {
 						UiUtils.redirect("../home.html");
 						return;
 					}
-					RootPanel.get("menuAcessoRestrito")
-							.add(UmMesParaViver.this.createMenuBarInfo(UmMesParaViver.this.usuario));
-					RootPanel.get("menuAcessoRestrito")
-							.add(UmMesParaViver.this.createMenuBar(UmMesParaViver.this.usuario));
+					RootPanel.get("menuAcessoRestrito").add(UmMesParaViver.this.createMenuBarInfo(UmMesParaViver.this.usuario));
+					RootPanel.get("menuAcessoRestrito").add(UmMesParaViver.this.createMenuBar(UmMesParaViver.this.usuario));
 				}
 
 				public void onFailure(Throwable caught) {
@@ -122,15 +117,15 @@ public class UmMesParaViver implements EntryPoint {
 		menu.setAutoOpen(true);
 		menu.setAnimationEnabled(true);
 		if (dto.getUsuario().getCodigoInscrito() != null) {
-			this.service.getGrupoByUsuario(dto.getUsuario().getCodigoInscrito(), new AsyncCallback() {
-				public void onSuccess(final Object result) {
+			this.service.getGrupoByUsuario(dto.getUsuario().getCodigoInscrito(), new AsyncCallback<GrupoDTO>() {
+				public void onSuccess(final GrupoDTO result) {
 					if (result == null) {
 						return;
 					}
 					menu.addItem("Membros do Meu Grupo", new Command() {
 						public void execute() {
-							UmMesParaViver.this.setContent(new AdministrarGrupoPanel(UmMesParaViver.this, null,
-									(GrupoDTO) result, false, true));
+							UmMesParaViver.this.setContent(
+									new AdministrarGrupoPanel(UmMesParaViver.this, null, result, false, true));
 						}
 					});
 					menu.addItem("Material de Apoio", new Command() {
@@ -176,7 +171,7 @@ public class UmMesParaViver implements EntryPoint {
 						UmMesParaViver.this.setContent(new ListaGruposPanel(UmMesParaViver.this, false));
 					}
 				});
-				gruposMenu.addItem("Enviar e-mail da Cria��o do Grupo", new Command() {
+				gruposMenu.addItem("Enviar e-mail da Criação do Grupo", new Command() {
 					public void execute() {
 						UmMesParaViver.this.setContent(new EnvioEmailPanel(UmMesParaViver.this, false));
 					}
@@ -218,13 +213,13 @@ public class UmMesParaViver implements EntryPoint {
 
 		menu.addItem("Sair", new Command() {
 			public void execute() {
-				UmMesParaViver.this.service.logout(new AsyncCallback() {
-					public void onSuccess(Object result) {
-						UiUtils.redirect("../home.html");
+				UmMesParaViver.this.service.logout(new AsyncCallback<Void>() {
+					public void onSuccess(Void result) {
+						UiUtils.redirect("./home.html");
 					}
 
 					public void onFailure(Throwable caught) {
-						UiUtils.redirect("../home.html");
+						UiUtils.redirect("./home.html");
 					}
 				});
 			}

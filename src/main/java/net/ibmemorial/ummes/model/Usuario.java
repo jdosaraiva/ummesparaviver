@@ -1,6 +1,10 @@
 package net.ibmemorial.ummes.model;
 
-public class Usuario implements java.io.Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class Usuario implements java.io.Serializable, IsSerializable {
+	
+	private static final long serialVersionUID = 4451313469146184864L;
 	private String login;
 	private String nome;
 	private String senha;

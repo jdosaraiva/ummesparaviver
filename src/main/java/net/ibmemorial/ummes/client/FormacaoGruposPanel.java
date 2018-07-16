@@ -1,5 +1,8 @@
 package net.ibmemorial.ummes.client;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -18,13 +21,11 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import java.util.LinkedList;
-import java.util.List;
+
 import net.ibmemorial.ummes.model.DiaSemana;
 import net.ibmemorial.ummes.model.Funcao;
 import net.ibmemorial.ummes.model.Grupo;
 import net.ibmemorial.ummes.model.Horario;
-import net.ibmemorial.ummes.model.Inscrito;
 import net.ibmemorial.ummes.model.InscritoDTO;
 import net.ibmemorial.ummes.model.TipoGrupo;
 
@@ -317,7 +318,7 @@ public class FormacaoGruposPanel extends LazyPanel {
 	private void criarGrupo() {
 		this.criarGrupoButton.setEnabled(false);
 
-		List<String> erros = new LinkedList();
+		List<String> erros = new LinkedList<>();
 		if (this.facilitador == null) {
 			erros.add("Selecione um <b>Facilitador</b>");
 		} else if ((this.facilitador.getInscrito().getFuncao() == Funcao.FACILITADOR) && (this.hospedeiro == null)) {
@@ -354,8 +355,8 @@ public class FormacaoGruposPanel extends LazyPanel {
 		grupo.setGrupoOutro(this.tipoGrupoOutroTextBox.getText());
 		grupo.setQuantidadeMaxima(new Integer(this.quantidadeAdultosTextBox.getText()));
 
-		this.service.formarGrupo(grupo, new AsyncCallback() {
-			public void onSuccess(Object result) {
+		this.service.formarGrupo(grupo, new AsyncCallback<Integer>() {
+			public void onSuccess(Integer result) {
 				VerticalPanel panel = new VerticalPanel();
 				panel.add(new HTML("Grupo <b>" + result + "</b> criado com sucesso."));
 				DialogBox db = UiUtils.createDialog("Sucesso", "Fechar", panel, new ClickHandler() {

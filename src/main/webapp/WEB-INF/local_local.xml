@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="username" value="bc1ec30f96d960" />
-		<property name="password" value="6d20330c" />
+		<property name="username" value="30dias" />
+		<property name="password" value="30dias123" />
 		<property name="maxActive" value="3" />
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 		<property name="testOnBorrow" value="true" />
 		<property name="url">
-			<value>jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_89333ac0603472c?reconnect=true</value>
+			<value>jdbc:mysql://localhost:3306/cemparasem?verifyServerCertificate=false</value>
 		</property>
 	</bean>
 

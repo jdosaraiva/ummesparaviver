@@ -71,7 +71,7 @@ public class PesquisaFacHospPanel extends VerticalPanel {
 	private final Button proximaPaginaButton = new Button(">>");
 	private final HTML pageNumberLabel = new HTML();
 	private int pageNumber = 0;
-	private final Map<String, Serializable> searchParameters = new HashMap();
+	private final Map<String, Serializable> searchParameters = new HashMap<>();
 	private Page<InscritoDTO> resultado;
 	private InscritoDTO facilitadorDTO;
 
@@ -272,9 +272,8 @@ public class PesquisaFacHospPanel extends VerticalPanel {
 	}
 
 	private void doSearch() {
-		this.service.getInscritos(this.searchParameters, this.pageNumber, this.facilitador, new AsyncCallback() {
-			public void onSuccess(Object objeto) {
-				Page<InscritoDTO> result = (Page<InscritoDTO>) objeto;
+		this.service.getInscritos(this.searchParameters, this.pageNumber, this.facilitador, new AsyncCallback<Page<InscritoDTO>>() {
+			public void onSuccess(Page<InscritoDTO> result) {
 				List<InscritoDTO> list = result.getResults();
 
 				PesquisaFacHospPanel.this.tabela.removeAllRows();

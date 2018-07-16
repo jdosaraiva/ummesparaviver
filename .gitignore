@@ -3,5 +3,6 @@
 /*.project
 /.settings
 /src/main/webapp/WEB-INF/lib/
-/.ummesparaviver.sublime-project
-/.ummesparaviver.sublime-workspace
+/ummesparaviver.sublime-project
+/ummesparaviver.sublime-workspace
+/.env

@@ -147,7 +147,6 @@ public abstract class UiUtils {
 	public static CheckBox[] createHorariosCheckBoxes() {
 		CheckBox[] cbs = new CheckBox[Horario.values().length];
 
-		int i = 0;
 		Horario[] arrayOfHorario;
 		int j = (arrayOfHorario = Horario.values()).length;
 		for (int k = 0; k < j; k++) {
@@ -286,7 +285,9 @@ public abstract class UiUtils {
 		return dialogBox;
 	}
 
-	public static native void redirect(String paramString);
+	public static native void redirect(String paramString) /*-{
+		$wnd.location.assign(paramString); 
+	}-*/;
 
 	public static DialogBox createErrorsDialog(String titulo, String fecharButton, List<String> erros) {
 		VerticalPanel dialogVPanel = new VerticalPanel();

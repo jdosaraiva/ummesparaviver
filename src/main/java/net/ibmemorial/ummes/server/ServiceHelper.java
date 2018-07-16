@@ -47,7 +47,7 @@ import net.ibmemorial.ummes.model.UsuarioDTO;
 import net.ibmemorial.ummes.shared.Page;
 
 public class ServiceHelper implements IServiceHelper {
-	private static Set<Integer> LOCK_GRUPOS = new HashSet();
+	private static Set<Integer> LOCK_GRUPOS = new HashSet<>();
 	private static final String EMAIL_BODY = "<p>Prezados hospedeiro e facilitador,<br><br>Estamos compartilhando com voc�s o grupo que foi formado para trabalharem juntos.<br>Pe�o que confiram os dados para ver se tudo est� correto conforme o desejo de voc�s.<br>Por favor, respondam esse e-mail se tiverem qualquer d�vida ou modifica��o a ser feita.<br><br>Outra coisa importante, nos domingos 21 e 28 de mar�o, voc�s j� poder�o inscrever nesse grupo os seus pr�prios convidados, garantindo assim a vaga deles. Depois disso, no m�s de abril j� abriremos as inscri��es para os membros da igreja.<br><br>Muito obrigado pela sua ajuda nesse projeto.<br>Deus o aben�oe,</p>";
 	HibernateDAO dao;
 	JavaMailSender mailSender;
@@ -124,11 +124,11 @@ public class ServiceHelper implements IServiceHelper {
 	}
 
 	public Page<Inscrito> getInscritos(final int pageNumber) {
-		return (Page<Inscrito>) this.dao.getHibernateTemplate().execute(new HibernateCallback() {
+		return this.dao.getHibernateTemplate().execute(new HibernateCallback<Page<Inscrito>>() {
 			public Page<Inscrito> doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery("select i from Inscrito i");
 
-				return new QueryPager(query).getPage(pageNumber, 10);
+				return new QueryPager<Inscrito>(query).getPage(pageNumber, 10);
 			}
 		});
 	}
@@ -171,7 +171,7 @@ public class ServiceHelper implements IServiceHelper {
 
 	public Page<InscritoDTO> getInscritos(final Map<String, Serializable> searchParameters, final int pageNumber,
 			final boolean facilitador) {
-		return (Page) this.dao.getHibernateTemplate().execute(new HibernateCallback() {
+		return (Page<InscritoDTO>) this.dao.getHibernateTemplate().execute(new HibernateCallback() {
 			public Page<InscritoDTO> doInHibernate(Session session) throws HibernateException, SQLException {
 				String sql = "select i from Inscrito i where  id.codigo not in (select g.codigoFacilitador from Grupo g) and  id.codigo not in (select g.codigoHospedeiro from Grupo g)";
 
@@ -225,13 +225,13 @@ public class ServiceHelper implements IServiceHelper {
 						query.setParameter((String) entry.getKey(), entry.getValue());
 					}
 				}
-				Page<Inscrito> page = new QueryPager(query).getPage(pageNumber, 5);
+				Page<Inscrito> page = new QueryPager<Inscrito>(query).getPage(pageNumber, 5);
 				Object results = new ArrayList(page.getResults().size());
 				for (Inscrito i : page.getResults()) {
-					((List) results).add(new InscritoDTO(i, ServiceHelper.this.getDiasSemana(i),
+					((List<InscritoDTO>) results).add(new InscritoDTO(i, ServiceHelper.this.getDiasSemana(i),
 							ServiceHelper.this.getHorarios(i), ServiceHelper.this.getTiposGrupo(i)));
 				}
-				return new Page((List) results, page.getPageNumber(), page.getResultsPerPage(), page.isLast());
+				return new Page<InscritoDTO>((List<InscritoDTO>) results, page.getPageNumber(), page.getResultsPerPage(), page.isLast());
 			}
 		});
 	}
@@ -239,11 +239,11 @@ public class ServiceHelper implements IServiceHelper {
 	public Integer formarGrupo(Grupo grupo) {
 		Integer codigoGrupo = (Integer) this.dao.save(grupo);
 
-		Inscrito facilitador = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+		Inscrito facilitador = this.dao.getHibernateTemplate().load(Inscrito.class,
 				grupo.getCodigoFacilitador());
 		criarSalvarUsuario(facilitador);
 		if (!grupo.getCodigoFacilitador().equals(grupo.getCodigoHospedeiro())) {
-			Inscrito hospedeiro = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+			Inscrito hospedeiro = this.dao.getHibernateTemplate().load(Inscrito.class,
 					grupo.getCodigoHospedeiro());
 			criarSalvarUsuario(hospedeiro);
 		}
@@ -345,13 +345,13 @@ public class ServiceHelper implements IServiceHelper {
 	}
 
 	public Page<Participante> getParticipantes(final Map<String, Serializable> searchParameters, final int pageNumber) {
-		return (Page) this.dao.getHibernateTemplate().execute(new HibernateCallback() {
+		return (Page<Participante>) this.dao.getHibernateTemplate().execute(new HibernateCallback() {
 			public Page<Participante> doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery("select p from Participante p where p.codigoGrupo = :codigoGrupo");
 				for (Map.Entry<String, Serializable> entry : searchParameters.entrySet()) {
 					query.setParameter((String) entry.getKey(), entry.getValue());
 				}
-				return new QueryPager(query).getPage(pageNumber, 1000);
+				return new QueryPager<Participante>(query).getPage(pageNumber, 1000);
 			}
 		});
 	}
@@ -369,7 +369,7 @@ public class ServiceHelper implements IServiceHelper {
 	public boolean cadastrarParticipante(Participante participante) {
 		lockGrupo(participante.getCodigoGrupo());
 		try {
-			Grupo grupo = (Grupo) this.dao.getHibernateTemplate().load(Grupo.class, participante.getCodigoGrupo(),
+			Grupo grupo = this.dao.getHibernateTemplate().load(Grupo.class, participante.getCodigoGrupo(),
 					LockMode.UPGRADE);
 
 			List<?> result = this.dao.getHibernateTemplate()
@@ -392,7 +392,7 @@ public class ServiceHelper implements IServiceHelper {
 	public boolean alterarQuantidade(Integer codigoGrupo, Integer quantidade) {
 		lockGrupo(codigoGrupo);
 		try {
-			Grupo grupo = (Grupo) this.dao.getHibernateTemplate().load(Grupo.class, codigoGrupo, LockMode.UPGRADE);
+			Grupo grupo = this.dao.getHibernateTemplate().load(Grupo.class, codigoGrupo, LockMode.UPGRADE);
 
 			List<?> result = this.dao.getHibernateTemplate()
 					.find("select count(*) from Participante p where p.codigoGrupo = ?", grupo.getCodigo());
@@ -416,7 +416,7 @@ public class ServiceHelper implements IServiceHelper {
 		lockGrupo(codigoGrupo);
 		try {
 			this.dao.getHibernateTemplate().load(Grupo.class, codigoGrupo, LockMode.UPGRADE);
-			Participante p = (Participante) this.dao.getHibernateTemplate().load(Participante.class, codigoParticipante,
+			Participante p = this.dao.getHibernateTemplate().load(Participante.class, codigoParticipante,
 					LockMode.UPGRADE);
 
 			this.dao.getHibernateTemplate().delete(p);
@@ -456,9 +456,9 @@ public class ServiceHelper implements IServiceHelper {
 		for (Iterator<?> iterator = result.iterator(); iterator.hasNext();) {
 			Grupo grupo = (Grupo) iterator.next();
 
-			Inscrito facilitador = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+			Inscrito facilitador = this.dao.getHibernateTemplate().load(Inscrito.class,
 					grupo.getCodigoFacilitador());
-			Inscrito hospedeiro = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+			Inscrito hospedeiro = this.dao.getHibernateTemplate().load(Inscrito.class,
 					grupo.getCodigoHospedeiro());
 
 			String html = gerarHtml(grupo, facilitador, hospedeiro);
@@ -480,9 +480,9 @@ public class ServiceHelper implements IServiceHelper {
 		for (Iterator<?> iterator = result.iterator(); iterator.hasNext();) {
 			Grupo grupo = (Grupo) iterator.next();
 
-			Inscrito facilitador = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+			Inscrito facilitador = this.dao.getHibernateTemplate().load(Inscrito.class,
 					grupo.getCodigoFacilitador());
-			Inscrito hospedeiro = (Inscrito) this.dao.getHibernateTemplate().load(Inscrito.class,
+			Inscrito hospedeiro = this.dao.getHibernateTemplate().load(Inscrito.class,
 					grupo.getCodigoHospedeiro());
 			if (!enviarEmailSenha(grupo, facilitador, builder)) {
 				return builder.toString();

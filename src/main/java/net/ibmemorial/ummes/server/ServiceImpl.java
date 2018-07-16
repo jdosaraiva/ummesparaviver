@@ -27,6 +27,10 @@ import net.ibmemorial.ummes.model.UsuarioDTO;
 import net.ibmemorial.ummes.shared.Page;
 
 public class ServiceImpl extends RemoteServiceServlet implements Service {
+	
+	/** serialVersionUID */
+	private static final long serialVersionUID = -8015088688300660505L;
+	
 	@Autowired
 	public IServiceHelper helper;
 
@@ -52,10 +56,15 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
 
 	public UsuarioDTO logar(String usuario, String senha) {
 		UsuarioDTO dto = this.helper.logar(usuario, senha);
+		
+		System.out.printf("ServiceImpl#logar\n");
 
 		if (dto == null) {
 			getThreadLocalRequest().getSession().removeAttribute("user");
 		} else {
+
+			System.out.printf("ServiceImpl#logar - Usuario:[%s]\n", dto.getUsuario().getNome());
+			
 			getThreadLocalRequest().getSession().setAttribute("user", dto);
 		}
 

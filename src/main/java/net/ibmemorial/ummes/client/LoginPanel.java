@@ -6,7 +6,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -19,6 +18,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
 import net.ibmemorial.ummes.model.UsuarioDTO;
 
 public class LoginPanel extends LazyPanel {
@@ -126,10 +126,10 @@ public class LoginPanel extends LazyPanel {
 	}
 
 	private void logar(final HTML mensagemErro) {
-		this.service.logar(this.usuarioTextBox.getText(), this.senhaTextBox.getText(), new AsyncCallback() {
-			public void onSuccess(Object result) {
+		this.service.logar(this.usuarioTextBox.getText(), this.senhaTextBox.getText(), new AsyncCallback<UsuarioDTO>() {
+			public void onSuccess(UsuarioDTO result) {
 				if (result != null) {
-					UiUtils.redirect("../acessoRestrito.html");
+					UiUtils.redirect("./acessoRestrito.html");
 				} else {
 					mensagemErro.setVisible(true);
 				}

@@ -1,11 +1,17 @@
 package net.ibmemorial.ummes.client;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -19,20 +25,11 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import net.ibmemorial.ummes.model.DiaSemana;
+
 import net.ibmemorial.ummes.model.Funcao;
-import net.ibmemorial.ummes.model.Grupo;
 import net.ibmemorial.ummes.model.GrupoDTO;
-import net.ibmemorial.ummes.model.Horario;
 import net.ibmemorial.ummes.model.Inscrito;
 import net.ibmemorial.ummes.model.Participante;
-import net.ibmemorial.ummes.model.TipoGrupo;
 import net.ibmemorial.ummes.shared.Page;
 
 public class AdministrarGrupoPanel extends LazyPanel {
@@ -58,7 +55,7 @@ public class AdministrarGrupoPanel extends LazyPanel {
 	private Button adicionarParticipanteButton = UiUtils.createButton("Adicionar Participante");
 	private GrupoDTO grupo;
 	private int pageNumber = 0;
-	private final Map<String, Serializable> searchParameters = new HashMap();
+	private final Map<String, Serializable> searchParameters = new HashMap<String, Serializable>();
 	final TextBox novaQuantidadeBox = new TextBox();
 	final TextBox nomeTextBox = new TextBox();
 	final TextBox emailTextBox = new TextBox();
@@ -232,9 +229,8 @@ public class AdministrarGrupoPanel extends LazyPanel {
 	}
 
 	public void popularMembros() {
-		this.service.getParticipantes(this.searchParameters, this.pageNumber, new AsyncCallback() {
-			public void onSuccess(Object objeto) {
-				Page<Participante> result = (Page<Participante>) objeto;
+		this.service.getParticipantes(this.searchParameters, this.pageNumber, new AsyncCallback<Page<Participante>>() {
+			public void onSuccess(Page<Participante> result) {
 				List<Participante> list = result.getResults();
 				boolean admin = (AdministrarGrupoPanel.this.previous != null)
 						&& (AdministrarGrupoPanel.this.entry.isUserInRole("ADMIN"));
@@ -258,13 +254,12 @@ public class AdministrarGrupoPanel extends LazyPanel {
 								}
 								AdministrarGrupoPanel.this.service.excluirParticipante(
 										AdministrarGrupoPanel.this.grupo.getGrupo().getCodigo(),
-										participante.getCodigo(), new AsyncCallback() {
+										participante.getCodigo(), new AsyncCallback<Boolean>() {
 											public void onFailure(Throwable caught) {
 												erroExcluir(participante, excluirButton);
 											}
 
-											public void onSuccess(Object objeto) {
-												Boolean result = (Boolean) objeto;
+											public void onSuccess(Boolean result) {
 												if (result.booleanValue()) {
 													AdministrarGrupoPanel.this.popularMembros();
 													return;
@@ -491,14 +486,13 @@ public class AdministrarGrupoPanel extends LazyPanel {
 			dialogBox.hide();
 			return true;
 		}
-		this.service.alterarQuantidade(this.grupo.getGrupo().getCodigo(), quantidade, new AsyncCallback() {
+		this.service.alterarQuantidade(this.grupo.getGrupo().getCodigo(), quantidade, new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 				erro.setHTML("Ocorreu um erro. Tente novamente. " + caught.getMessage());
 				erro.setVisible(true);
 			}
 
-			public void onSuccess(Object objeto) {
-				Boolean result = (Boolean) objeto;
+			public void onSuccess(Boolean result) {
 				if (!result.booleanValue()) {
 					erro.setHTML("N�o foi poss�vel alterar a quantidade.");
 					erro.setVisible(true);
@@ -515,7 +509,7 @@ public class AdministrarGrupoPanel extends LazyPanel {
 
 	public boolean cadastrar(final DialogBox dialogBox, final HTML erro) {
 		erro.setVisible(false);
-		List<String> mensagens = new LinkedList();
+		List<String> mensagens = new LinkedList<String>();
 		if (((!ValidationUtils.validateRequired(mensagens, "<b>Nome</b>", this.nomeTextBox))
 				|| (!ValidationUtils.validateMinLength(mensagens, "<b>Nome</b>", this.nomeTextBox, 3))
 				|| (ValidationUtils.validateMaxLength(mensagens, "<b>Nome</b>", this.nomeTextBox, 50))) || (
@@ -552,14 +546,13 @@ public class AdministrarGrupoPanel extends LazyPanel {
 		if (ValidationUtils.isInteger(this.criancasTextBox.getText())) {
 			participante.setQuantidadeCriancas(new Integer(this.criancasTextBox.getText()));
 		}
-		this.service.cadastrarParticipante(participante, new AsyncCallback() {
+		this.service.cadastrarParticipante(participante, new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 				erro.setHTML("Ocorreu um erro. Tente novamente. " + caught.getMessage());
 				erro.setVisible(true);
 			}
 
-			public void onSuccess(Object objeto) {
-				Boolean result = (Boolean) objeto;
+			public void onSuccess(Boolean result) {
 				if (!result.booleanValue()) {
 					erro.setHTML("Grupo n�o possui vagas. Tente outro grupo.");
 					erro.setVisible(true);

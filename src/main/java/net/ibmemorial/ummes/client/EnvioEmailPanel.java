@@ -39,14 +39,14 @@ public class EnvioEmailPanel extends LazyPanel {
 	}
 
 	private void enviarEmail(final HTML info) {
-		this.service.enviarEmail(1, this.senhas ? 2 : 1, new AsyncCallback() {
+		this.service.enviarEmail(1, this.senhas ? 2 : 1, new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				EnvioEmailPanel.this.enviarButton.setEnabled(true);
 				info.setHTML(info.getHTML() + "<br>Ocorreu um erro (" + caught.getMessage()
 						+ "). Alguns e-mails podem ter sido enviados.");
 			}
 
-			public void onSuccess(Object result) {
+			public void onSuccess(String result) {
 				if (result == null) {
 					EnvioEmailPanel.this.enviarButton.setEnabled(true);
 					return;

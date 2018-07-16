@@ -2,7 +2,11 @@ package net.ibmemorial.ummes.model;
 
 import java.io.Serializable;
 
-public class UsuarioDTO implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class UsuarioDTO implements Serializable, IsSerializable {
+	private static final long serialVersionUID = 459858886833119218L;
+	
 	private Usuario usuario;
 	private Role[] roles;
 
